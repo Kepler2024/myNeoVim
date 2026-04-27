@@ -1,17 +1,18 @@
 return {
   "saghen/blink.cmp",
-  opts = {
-    keymap = {
+  opts = function(_, opts)
+    -- keymap 部分:直接赋值,覆盖默认
+    opts.keymap = {
       preset = "default",
       ["<Tab>"] = {
         function()
           local suggestion = require("copilot.suggestion")
           if suggestion.is_visible() then
             suggestion.accept_line()
-            return true -- 关键:返回 true 表示这次按键已处理
+            return true
           end
         end,
-        "select_next", -- copilot 没建议时,走 blink 默认行为
+        "select_next",
         "snippet_forward",
         "fallback",
       },
@@ -27,12 +28,15 @@ return {
         "snippet_backward",
         "fallback",
       },
-    },
-    sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
-      providers = {
-        copilot = nil,
-      },
-    },
-  },
+    }
+
+    -- sources 部分:强制清掉 copilot
+    opts.sources = opts.sources or {}
+    opts.sources.default = { "lsp", "path", "snippets", "buffer" }
+    if opts.sources.providers then
+      opts.sources.providers.copilot = nil
+    end
+
+    return opts
+  end,
 }
