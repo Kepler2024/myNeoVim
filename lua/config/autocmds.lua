@@ -7,20 +7,6 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
--- vim.api.nvim_create_autocmd("VimEnter", {
---   callback = function()
---     if vim.fn.argc() == 1 then
---       local arg = vim.fn.argv()[1]
---       if vim.fn.isdirectory(arg) == 0 then
---         Snacks.explorer()
---         vim.schedule(function()
---           vim.cmd("wincmd p")
---         end)
---       end
---     end
---   end,
--- })
-
 local explorer_opened = false
 vim.api.nvim_create_autocmd("BufReadPost", {
   callback = function(args)
@@ -33,8 +19,9 @@ vim.api.nvim_create_autocmd("BufReadPost", {
       return
     end
     explorer_opened = true
-    Snacks.explorer()
+    local file_dir = LazyVim.root()
     vim.schedule(function()
+      Snacks.explorer({ cwd = file_dir })
       vim.cmd("wincmd p")
     end)
   end,
