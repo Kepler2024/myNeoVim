@@ -36,7 +36,7 @@ return {
       sections = {
         { section = "header" },
         { section = "keys", gap = 1, padding = 1 },
-        { section = "startup" }, -- 那个 "Neovim loaded..." 行
+        -- { section = "startup" }, -- 那个 "Neovim loaded..." 行
         {
           text = { { "  KK@terminal · harrykepler.com", hl = "footer" } },
           align = "center",
