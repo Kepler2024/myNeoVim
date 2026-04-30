@@ -26,3 +26,14 @@ vim.keymap.set("n", "<leader>bd", function()
   end
   Snacks.bufdelete()
 end, { desc = "Delete buffer (keep window)" })
+
+vim.keymap.set("n", "<C-/>", function()
+  Snacks.terminal(nil, {
+    win = {
+      position = "float",
+      border = "rounded",
+      width = 0.8,
+      height = 0.8,
+    },
+  })
+end, { desc = "Terminal (float)" })
