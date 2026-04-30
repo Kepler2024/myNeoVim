@@ -37,6 +37,9 @@ return {
       opts.sources.providers.copilot = nil
     end
 
+    opts.completion = opts.completion or {}
+    opts.completion.ghost_text = { enabled = false }
+
     return opts
   end,
 }
