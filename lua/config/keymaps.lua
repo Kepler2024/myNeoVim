@@ -37,3 +37,5 @@ vim.keymap.set("n", "<C-/>", function()
     },
   })
 end, { desc = "Terminal (float)" })
+
+vim.keymap.set("n", "<leader><space>", "<Nop>", { desc = "Disabled" })
