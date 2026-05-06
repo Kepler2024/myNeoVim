@@ -7,6 +7,7 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
+-- 打开 nvim 时自动打开文件资源管理器
 local explorer_opened = false
 vim.api.nvim_create_autocmd("BufReadPost", {
   callback = function(args)
@@ -24,5 +25,13 @@ vim.api.nvim_create_autocmd("BufReadPost", {
       Snacks.explorer({ cwd = file_dir })
       vim.cmd("wincmd p")
     end)
+  end,
+})
+
+-- 关闭 markdown 文件的拼写检查
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown" },
+  callback = function()
+    vim.opt_local.spell = false
   end,
 })
