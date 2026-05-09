@@ -8,25 +8,25 @@
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
 -- 打开 nvim 时自动打开文件资源管理器
-local explorer_opened = false
-vim.api.nvim_create_autocmd("BufReadPost", {
-  callback = function(args)
-    if explorer_opened then
-      return
-    end
-    -- 跳过非普通文件（dashboard、help、terminal 等）
-    local buftype = vim.bo[args.buf].buftype
-    if buftype ~= "" then
-      return
-    end
-    explorer_opened = true
-    local file_dir = LazyVim.root()
-    vim.schedule(function()
-      Snacks.explorer({ cwd = file_dir })
-      vim.cmd("wincmd p")
-    end)
-  end,
-})
+-- local explorer_opened = false
+-- vim.api.nvim_create_autocmd("BufReadPost", {
+--   callback = function(args)
+--     if explorer_opened then
+--       return
+--     end
+--     -- 跳过非普通文件（dashboard、help、terminal 等）
+--     local buftype = vim.bo[args.buf].buftype
+--     if buftype ~= "" then
+--       return
+--     end
+--     explorer_opened = true
+--     local file_dir = LazyVim.root()
+--     vim.schedule(function()
+--       Snacks.explorer({ cwd = file_dir })
+--       vim.cmd("wincmd p")
+--     end)
+--   end,
+-- })
 
 -- 关闭 markdown 文件的拼写检查
 vim.api.nvim_create_autocmd("FileType", {
