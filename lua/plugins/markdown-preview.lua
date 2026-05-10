@@ -11,6 +11,10 @@ return {
       function! OpenInIterm(url)
         let html = '<!DOCTYPE html><meta http-equiv="refresh" content="0; url=' . a:url . '">'
         call writefile([html], expand('~/iterm-mdpreview.html'))
+
+        let script = 'tell application "iTerm" to activate' . "\n" .
+          \ 'tell application "System Events" to tell process "iTerm2" to key code 0 using {control down, option down}'
+        call jobstart(['osascript', '-e', script], {'detach': 1})
       endfunction
     ]])
   end,
