@@ -20,13 +20,17 @@ end, { desc = "Save all, close all buffers, open Dashboard" })
 
 -- 删除 buffer，但保留窗口
 vim.keymap.set("n", "<leader>bd", function()
-  local bufs = vim.fn.getbufinfo({ buflisted = 1 })
-  if #bufs > 1 then
-    vim.cmd("BufferLineCycleNext")
+  local current = vim.api.nvim_get_current_buf()
+  -- 优先跳到 alternate buffer (#)，否则跳前一个
+  if vim.fn.bufnr("#") > 0 and vim.fn.buflisted(vim.fn.bufnr("#")) == 1 then
+    vim.cmd("buffer #")
+  else
+    vim.cmd("bprevious")
   end
-  Snacks.bufdelete()
+  Snacks.bufdelete(current)
 end, { desc = "Delete buffer (keep window)" })
 
+-- Float terminal
 vim.keymap.set("n", "<C-/>", function()
   Snacks.terminal(nil, {
     win = {
@@ -38,19 +42,18 @@ vim.keymap.set("n", "<C-/>", function()
   })
 end, { desc = "Terminal (float)" })
 
+-- Claude-Bridge keymaps
+-- Disable space in normal mode
 vim.keymap.set("n", "<leader><space>", "<Nop>", { desc = "Disabled" })
-
 -- Basic tmux commands
 vim.keymap.set("n", "<leader>ct", ":CodeBridgeTmux<CR>", { desc = "Send file to claude" })
 vim.keymap.set("v", "<leader>ct", ":CodeBridgeTmux<CR>", { desc = "Send selection to claude" })
 vim.keymap.set("n", "<leader>ca", ":CodeBridgeTmuxAll<CR>", { desc = "Send all buffers to claude" })
-
 -- Advanced tmux commands
 vim.keymap.set("n", "<leader>ci", ":CodeBridgeTmuxInteractive<CR>", { desc = "Interactive prompt to claude" })
 vim.keymap.set("n", "<leader>cd", ":CodeBridgeTmuxDiff<CR>", { desc = "Send git diff to claude" })
 vim.keymap.set("n", "<leader>cr", ":CodeBridgeTmuxRecent<CR>", { desc = "Send recent files to claude" })
 vim.keymap.set("n", "<leader>ce", ":CodeBridgeTmuxDiagnostics<CR>", { desc = "Send diagnostics to claude" })
-
 -- Chat interface
 vim.keymap.set("n", "<leader>cq", ":CodeBridgeQuery<CR>", { desc = "Query claude with context" })
 vim.keymap.set("v", "<leader>cq", ":CodeBridgeQuery<CR>", { desc = "Query claude with selection" })
