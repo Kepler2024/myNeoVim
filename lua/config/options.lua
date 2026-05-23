@@ -6,3 +6,5 @@ vim.opt.shiftwidth = 4 -- 自动缩进的空格数
 vim.opt.tabstop = 4 -- Tab 显示为几个空格
 vim.opt.softtabstop = 4 -- 编辑时 Tab/Backspace 的步长
 vim.opt.expandtab = true -- Tab 转空格
+
+vim.g.autoformat = false -- 禁止自动格式化
