@@ -1,22 +1,17 @@
 return {
-  "iamcco/markdown-preview.nvim",
-  cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-  build = "cd app && npm install",
-  init = function()
-    vim.g.mkdp_filetypes = { "markdown" }
-    vim.g.mkdp_port = "8089"
-    vim.g.mkdp_auto_close = 1
-    vim.g.mkdp_browserfunc = "OpenInIterm"
-    vim.cmd([[
-      function! OpenInIterm(url)
-        let html = '<!DOCTYPE html><meta http-equiv="refresh" content="0; url=' . a:url . '">'
-        call writefile([html], expand('~/iterm-mdpreview.html'))
-
-        let script = 'tell application "iTerm" to activate' . "\n" .
-          \ 'tell application "System Events" to tell process "iTerm2" to key code 0 using {control down, option down}'
-        call jobstart(['osascript', '-e', script], {'detach': 1})
-      endfunction
-    ]])
+  dir = "/Users/harry/Desktop/GitHub/Personal/builtin-mdpreview.nvim/iterm-mdpreview.nvim",
+  name = "iterm-mdpreview.nvim",
+  dependencies = {
+    {
+      "iamcco/markdown-preview.nvim",
+      build = "cd app && npm install",
+      ft = { "markdown" },
+    },
+  },
+  ft = "markdown",
+  config = function()
+    require("iterm-mdpreview").setup({
+      profile = "Browser", -- 改成你的 iTerm Browser profile 名字
+    })
   end,
-  ft = { "markdown" },
 }
