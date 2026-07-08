@@ -1,17 +1,8 @@
 return {
-  dir = "/Users/harry/Desktop/GitHub/Personal/builtin-mdpreview.nvim/iterm-mdpreview.nvim",
-  name = "iterm-mdpreview.nvim",
+  "Kepler2024/iTerm-preview.nvim",
   dependencies = {
-    {
-      "iamcco/markdown-preview.nvim",
-      build = "cd app && npm install",
-      ft = { "markdown" },
-    },
+    { "iamcco/markdown-preview.nvim", build = "cd app && npm install" },
   },
   ft = "markdown",
-  config = function()
-    require("iterm-mdpreview").setup({
-      profile = "Browser", -- 改成你的 iTerm Browser profile 名字
-    })
-  end,
+  opts = {}, -- defaults work out of the box once the iTerm profile exists
 }
