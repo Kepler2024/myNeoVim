@@ -1,5 +1,21 @@
 return {
   {
+    "mfussenegger/nvim-jdtls",
+    opts = {
+      settings = {
+        java = {
+          ["import"] = {
+            gradle = {
+              java = {
+                home = "/Users/harry/Library/Java/JavaVirtualMachines/openjdk-26/Contents/Home",
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  {
     "alessio-vivaldelli/java-creator-nvim",
     config = function()
       require("java-creator-nvim").setup({
