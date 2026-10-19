@@ -1,5 +1,9 @@
 return {
   "zbirenbaum/copilot.lua",
+  keys = {
+    { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
+    { "<leader>ag", "<cmd>Copilot toggle<cr>", desc = "Toggle Copilot (buffer)" },
+  },
   opts = {
     suggestion = {
       enabled = true,
